@@ -1,25 +1,239 @@
+html * {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   padding: 0;
   font-family: "Helvetica Neue", Arial, sans-serif;
   font-size: 16px;
+  color: #223763;
 }
 
 h1, h2, h3 {
   font-weight: bold;
-  margin: 0;
+  margin: 0.5rem 0;
+  color: #0D2454;
+  line-height: 1;
 }
 
 h1 {
-  font-size: 120pt;
+  font-size: 120px;
 }
 
 h2 {
-  font-size: 88pt;
+  font-size: 88px;
 }
 
 h3 {
-  font-size: 64pt;
+  font-size: 64px;
+}
+
+a {
+  color: #0C378D;
+  transition: 0.25s color;
+}
+a:hover {
+  color: #617399;
+  text-decoration: none;
+}
+
+p, li {
+  font-size: 16px;
+}
+
+header .header_inner {
+  max-width: 1680px;
+  margin: 0 auto;
+  padding: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+header .logo_secondary {
+  text-align: right;
+}
+header .logo_secondary h2 {
+  margin: 0;
+  font-size: 46px;
+  font-weight: normal;
+}
+header .logo_secondary p {
+  margin-top: 0.5rem;
+}
+
+footer {
+  clear: both;
+  color: #ffffff;
+  background: #0D2454;
+}
+footer .footer_inner {
+  display: grid;
+  grid-template-areas: "footer_left footer_right ." "footer_bottom footer_bottom .";
+  gap: 20px;
+  grid-template-columns: auto auto 250px;
+  margin: 50px auto 0 auto;
+  max-width: 1680px;
+  padding: 2rem;
+}
+footer .footer_inner h1, footer .footer_inner h2, footer .footer_inner h3, footer .footer_inner p {
+  color: #ffffff;
+}
+footer .footer_inner h2 {
+  font-size: 60px;
+}
+footer .footer_inner a {
+  color: #D6E4FF;
+}
+footer .footer_inner a:hover {
+  color: #7a93c8;
+}
+footer .footer_inner div {
+  padding-top: 50px;
+}
+footer .footer_inner div p, footer .footer_inner div input {
+  margin: 1rem 0;
+}
+footer .footer_inner .footer_left {
+  grid-area: footer_left;
+}
+footer .footer_inner .footer_right {
+  grid-area: footer_right;
+}
+footer .footer_inner .footer_bottom {
+  grid-area: footer_bottom;
+}
+
+main figure {
+  max-width: 250px;
+}
+main figure img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+main figure figcaption {
+  background: #d6e4ff;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+}
+main figure a {
+  outline: none;
+}
+main figure.pull_right {
+  float: right;
+  margin: 0 0 1rem 1rem;
+}
+
+.content {
+  max-width: 1680px;
+  margin: 0 auto;
+  padding: 2rem;
+  display: grid;
+  gap: 20px;
+  grid: auto/1fr auto;
+}
+.content .table_of_contents {
+  background: #d6e4ff;
+  width: 260px;
+  align-self: start;
+  padding: 30px;
+}
+.content .table_of_contents h2 {
+  font-size: 10px;
+  font-weight: normal;
+  font-style: italic;
+}
+.content .table_of_contents hr {
+  border: 0;
+  border-top: 1px solid #333333;
+}
+.content .table_of_contents ul {
+  padding: 0 0 0 15px;
+}
+.content .table_of_contents ul li a {
+  display: block;
+  padding: 5px 0;
+}
+.content .table_of_contents ul li.active {
+  font-weight: bold;
+}
+
+.carousel {
+  width: 100%;
+  height: 640px;
+  overflow: hidden;
+}
+.carousel .carousel_wrap {
+  width: inherit;
+  height: inherit;
+  display: flex;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  transition: 0.25s transform ease-in-out;
+}
+.carousel .carousel_wrap .carousel_slide {
+  flex: 0 0 auto;
+  width: 100vw;
+  position: relative;
+}
+.carousel .carousel_wrap .carousel_slide img {
+  display: block;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 1;
+}
+.carousel .carousel_wrap .carousel_slide .carousel_slide_info {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  gap: 20px;
+  grid-template-areas: "credit" "title" "caption";
+  height: 100%;
+}
+.carousel .carousel_wrap .carousel_slide .carousel_slide_info h2, .carousel .carousel_wrap .carousel_slide .carousel_slide_info p {
+  width: 75%;
+  margin: 0 auto;
+  max-width: 1200px;
+}
+.carousel .carousel_wrap .carousel_slide .carousel_slide_info h2 {
+  grid-area: title;
+  text-align: center;
+  font-size: 78px;
+  width: 75%;
+  margin: 0 auto;
+  align-self: end;
+}
+.carousel .carousel_wrap .carousel_slide .carousel_slide_info h2 span {
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  text-wrap-style: pretty;
+  background: #ffffff;
+  padding: 0 25px;
+  line-height: 1.45;
+  border-radius: 0.5em;
+  box-shadow: -0.08em -0.08em 0.18em rgba(255, 0, 0, 0.8), -0.18em 0.18em 0.18em rgba(0, 0, 255, 0.8), 0.18em 0.18em 0.18em rgba(0, 0, 255, 0.8);
+}
+.carousel .carousel_wrap .carousel_slide .carousel_slide_info .caption {
+  width: 75%;
+  margin: 0 auto;
+  grid-area: caption;
+  text-align: center;
+  background: #d6e4ff;
+  padding: 1rem 2.5rem;
+  line-height: 1.5;
+  border-radius: 8px;
+  align-self: start;
+}
+.carousel .carousel_wrap .carousel_slide .carousel_slide_info .credit {
+  grid-area: credit;
+  background: #ffffff;
+  padding: 1rem;
+  align-self: start;
+  justify-self: start;
+  margin-top: 0.7rem;
 }
 
 /*# sourceMappingURL=styles.css.map */

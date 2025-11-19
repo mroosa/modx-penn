@@ -1,16 +1,23 @@
 @import "fonts/fonts";
 @import "variables/variables";
 
+html * {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     padding: 0;
     font-family: $font_family__base;
     font-size: $font_size__base;
+    color: $color__base;
 }
 
 h1, h2, h3 {
     font-weight: bold;
-    margin: 0;
+    margin: .5rem 0;
+    color: $color__heading;
+    line-height: 1;
 }
 
 h1 {
@@ -21,4 +28,274 @@ h2 {
 }
 h3 {
     font-size: $font_size__h3;
+}
+
+a {
+    color: $color__link;
+    transition: .25s color;
+
+    &:hover {
+        color: $color__link__hover;
+        text-decoration: none;
+    }
+}
+
+p, li {
+    font-size: $font_size__base;
+}
+
+header {
+
+    .header_inner {
+        max-width: $size__breakpoint__max;
+        margin: 0 auto;
+        padding: $size__section_padding;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .logo_secondary {
+        text-align: right;
+
+        h2 {
+            margin: 0;
+            font-size: 46px;
+            font-weight: normal;
+        }
+        p {
+            margin-top: .5rem;
+        }
+    }
+}
+
+footer {
+    clear: both;
+    color: $color__footer__base;
+    background: $color__footer__background;
+
+    .footer_inner {
+        display: grid;
+        // Use grid with empty area to match content
+        grid-template-areas:
+            "footer_left footer_right ."
+            "footer_bottom footer_bottom ."
+        ;
+        gap: $size__content_gap;
+        grid-template-columns: auto auto 250px;
+        margin: 50px auto 0 auto;
+        max-width: $size__breakpoint__max;
+        padding: $size__section_padding;
+
+        h1, h2, h3, p {
+            color: $color__footer__base;
+        }
+
+        h2 {
+            font-size: $font_size__footer__h2;
+        }
+
+        a {
+            color: $color__footer__link;
+
+            &:hover {
+                color: $color__footer__link__hover;
+            }
+        }
+
+        div {
+            padding-top: 50px;
+
+            p, input {
+                margin: 1rem 0;
+            }
+        }
+
+        .footer_left {
+            grid-area: footer_left;
+        }
+        .footer_right {
+            grid-area: footer_right;
+        }
+        .footer_bottom {
+            grid-area: footer_bottom;
+        }
+    }
+
+}
+
+main {
+
+    figure {
+        max-width: $size__figure__max_width;
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        figcaption {
+            background: $color__figcaption__background;
+            padding: 0.5rem;
+            font-size: 0.9rem;
+
+        }
+
+        a {
+            outline: none;
+        }
+
+        &.pull_right {
+            float: right;
+            margin: 0 0 1rem 1rem;
+        }
+
+    }
+
+}
+
+.content {
+    max-width: $size__breakpoint__max;
+    margin: 0 auto;
+    padding: $size__section_padding;
+    display: grid;
+    gap: $size__content_gap;
+    grid: auto / 1fr auto;
+
+    .content_body {
+
+    }
+
+    .table_of_contents {
+        background: $color__figcaption__background;
+        width: 260px;
+        align-self: start;
+        padding: 30px;
+
+        h2 {
+            font-size: 10px;
+            font-weight: normal;
+            font-style: italic;
+        }
+
+        hr {
+            border: 0;
+            border-top: 1px solid #333333;
+        }
+
+        ul {
+            padding: 0 0 0 15px;
+
+            li {
+                a {
+                    display: block;
+                    padding: 5px 0;
+                }
+
+                &.active {
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+
+}
+
+// Carousel styling (break out of main for modularity)
+.carousel {
+    width: 100%;
+    height: 640px;
+    overflow: hidden;
+
+    .carousel_wrap {
+        width: inherit;
+        height: inherit;
+        display: flex;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        transition: .25s transform ease-in-out;
+
+        .carousel_slide {
+            flex: 0 0 auto;
+            width: 100vw;
+            position: relative;
+
+            img {
+                display: block;
+                object-fit: cover;
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                z-index: 1;
+            }
+
+            .carousel_slide_info {
+                position: relative;
+                z-index: 2;
+                display: grid;
+                gap: 20px;
+                grid-template-areas:
+                    "credit"
+                    "title"
+                    "caption"
+                ;
+                height: 100%;
+
+                h2, p {
+                    width: 75%;
+                    margin: 0 auto;
+                    max-width: 1200px;
+                }
+
+                h2 {
+                    grid-area: title;
+                    text-align: center;
+                    // TODO: use clamp()
+                    font-size: 78px;
+                    width: 75%;
+                    margin: 0 auto;
+                    align-self: end;
+
+                    span {
+                        box-decoration-break: clone;
+                        -webkit-box-decoration-break: clone;
+                        text-wrap-style: pretty;
+                        background: #ffffff;
+                        padding: 0 25px;
+                        line-height: 1.45;
+                        // EM-based to account for changing font-sizes
+                        border-radius: .5em;
+                        box-shadow:  
+                            -.08em -.08em .18em #ff0000cc, 
+                            -.18em .18em .18em #0000ffcc,
+                            .18em .18em .18em #0000ffcc
+                        ;
+                    }
+                }
+                .caption {
+                    width: 75%;
+                    margin: 0 auto;
+                    grid-area: caption;
+                    text-align: center;
+                    background: $color__figcaption__background;
+                    padding: 1rem 2.5rem;
+                    line-height: 1.5;
+                    border-radius: 8px;
+                    align-self: start;
+                }
+                .credit {
+                    grid-area: credit;
+                    background: #ffffff;
+                    padding: 1rem;
+                    align-self: start;
+                    justify-self: start;
+                    margin-top: .7rem;
+                }
+            }
+        }
+
+    }
+
 }

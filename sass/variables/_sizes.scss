@@ -1,6 +1,26 @@
+// Font sizes
+
 $font_size__base: 16px;
 
 // TODO: fill in clamp sizes
-$font_size__h1: 120pt;
-$font_size__h2: 88pt;
-$font_size__h3: 64pt;
+$font_size__h1: 120px;
+$font_size__h2: 88px;
+$font_size__h3: 64px;
+
+$font_size__footer__h2: 60px;
+$font_size__carousel__h2: 56px;
+
+
+// Breakpoints
+$size__breakpoint__sml: 550px;
+$size__breakpoint__mid: 768px;
+$size__breakpoint__lrg: 1024px;
+$size__breakpoint__xlg: 1200px;
+$size__breakpoint__xxl: 1440px;
+$size__breakpoint__max: 1680px;
+
+$size__figure__max_width: 250px;
+
+// Misc
+$size__content_gap: 20px;
+$size__section_padding: 2rem;
