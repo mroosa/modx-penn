@@ -50,6 +50,66 @@
                         </div>
                     </div>
                 </div>
+
+                <script>
+                    let currentIndex = 0;
+                    const carousel = document.querySelector('.carousel');
+                    const slides = document.querySelectorAll('.carousel_slide');
+                    const totalSlides = slides.length;
+
+                    // create navigation dots
+                    const carouselNav = document.createElement('ul');
+                    carouselNav.classList.add('carousel_nav');
+                    for (let i = 0; i < totalSlides; i++) {
+                        const carouselDot = document.createElement('li');
+                        const carouselDotLink = document.createElement('a');
+                        carouselDotLink.setAttribute('href', '#');
+                        if (i === 0) {
+                            carouselDotLink.classList.add('active');
+                        }
+                        carouselDotLink.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            document.querySelector('.carousel_nav .active').classList.remove('active');
+                            carouselDotLink.classList.add('active');
+                            currentIndex = i;
+                            showSlide(currentIndex);
+                        });
+                        carouselDot.appendChild(carouselDotLink);
+                        carouselNav.appendChild(carouselDot);
+                    }
+                    carousel.appendChild(carouselNav);
+
+                    // TODO: Use before/after positioning for seemless transitions in either direction.
+                    const showSlide = (index) => {
+                        document.querySelector('.carousel_wrap').style.transform = `translateX(-${index * 100}%)`;
+                    }
+
+                    // Initial display
+                    showSlide(currentIndex);
+
+                    // Create play/pause button
+                    const playBtn = document.createElement('button');
+                    playBtn.classList.add('carousel_play_btn','paused');
+                    playBtn.setAttribute('aria-label', 'Play Carousel');
+                    // Add play/pause buttons, control with CSS visibility
+                    playBtn.innerHTML = '<span class="play"><i class="fa fa-play fa-xs"></i><span class="accessible_text"> Play</span></span><span class="pause"><i class="fa fa-pause fa-xs"></i><span class="accessible_text"> Pause</span></span>                    ';
+                    carousel.appendChild(playBtn);
+                    // Create interval for auto-advancing slides
+                    playBtn.addEventListener('click', () => {
+                        if (playBtn.classList.contains('playing')) {
+                            clearInterval(carouselInterval);
+                            playBtn.classList.remove('playing');
+                            playBtn.classList.add('paused');
+                        } else {
+                            carouselInterval = setInterval(() => {
+                                currentIndex = (currentIndex + 1) % totalSlides;
+                                showSlide(currentIndex);
+                            }, 5000);
+                            playBtn.classList.remove('paused');
+                            playBtn.classList.add('playing');
+                        }
+                    });
+                </script>
             </section>
             <section class="content" x-ref="content">
                 <div class="content_body">
@@ -70,7 +130,7 @@
                     <h2>Section Two</h2>
                     <p>Paragraph body copy with <strong>bold elements</strong>, <em>italic elements</em>, and <a href="#">a clickable link</a>. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    <h3>Subheading One</h3>
+                    <h3 id="subheading-five">Subheading One</h3>
                     <p>Paragraph body copy with <strong>bold elements</strong>, <em>italic elements</em>, and <a href="#">a clickable link</a>. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                     <p>Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
@@ -80,8 +140,15 @@
                 <script>
 
                     // Helper functions
-                    const generateId = text => {
-                        return text.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-');
+                    const generateId = (element, text) => {
+                        let linkId = '';
+                        if (!element.getAttribute('id')) {
+                            linkId = element.textContent.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-');
+                            element.setAttribute('id', linkId);
+                        } else {
+                            linkId = element.getAttribute('id');
+                        }
+                        return linkId;
                     }
                     const generateListItem = (id, text) => {
                         const linkListItem = document.createElement('li');
@@ -112,8 +179,7 @@
 
                         content.querySelectorAll('h2').forEach(heading => {
                             // Sanitize the heading to make an ID for the headings
-                            const linkId = generateId(heading.textContent);
-                            heading.setAttribute('id', linkId);
+                            const linkId = generateId(heading);
 
                             // Create link based on heading ID
                             const tocLink = generateListItem(linkId, heading.textContent);
@@ -124,8 +190,7 @@
                             while (nextElem && nextElem.tagName !== 'H2') {
                                 if (nextElem.tagName === 'H3') {
                                     // Sanitize the heading to make an ID for the headings
-                                    const subLinkId = generateId(nextElem.textContent);
-                                    nextElem.setAttribute('id', subLinkId);
+                                    const subLinkId = generateId(nextElem);
 
                                     // Create link based on heading ID
                                     const subTocListItem = generateListItem(subLinkId, nextElem.textContent);
@@ -154,6 +219,20 @@
                             } else {
                                 toc.classList.remove('fixed');
                             }
+
+                            document.querySelectorAll('.table_of_contents a').forEach(link => {
+                                const targetId = link.getAttribute('href').substring(1);
+                                const targetElement = document.getElementById(targetId);
+                                if (targetElement) {
+                                    const rect = targetElement.getBoundingClientRect();
+                                    // TODO: Find a low-cost way to check bounds on next element 
+                                    if (rect.top <= 100 && rect.bottom >= -200) {
+                                        link.classList.add('active');
+                                    } else {
+                                        link.classList.remove('active');
+                                    }
+                                }
+                            });
                         });
                     }
 
