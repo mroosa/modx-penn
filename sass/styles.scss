@@ -112,6 +112,10 @@ footer {
             }
         }
 
+        i.fa {
+            color: $color__footer__link;
+        }
+
         .footer_left {
             grid-area: footer_left;
         }

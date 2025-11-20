@@ -94,6 +94,9 @@ footer .footer_inner div {
 footer .footer_inner div p, footer .footer_inner div input {
   margin: 1rem 0;
 }
+footer .footer_inner i.fa {
+  color: #D6E4FF;
+}
 footer .footer_inner .footer_left {
   grid-area: footer_left;
 }
