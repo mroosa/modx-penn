@@ -145,8 +145,18 @@
                             tocList.appendChild(tocLink);
 
                         }); 
+                        // Append content to the page
                         content.after(toc);
+
+                        window.addEventListener('scroll', () => {
+                            if (toc.getBoundingClientRect().top < 20) {
+                                toc.classList.add('fixed');
+                            } else {
+                                toc.classList.remove('fixed');
+                            }
+                        });
                     }
+
                 </script>
 
             </section>
@@ -162,8 +172,10 @@
                 </div>
                 <div class="footer_right">
                     <h2>Search Our Site</h2>
-                    <input type="text" placeholder="Search Our Site..." />
-                    <button class="icon_magnifying_glass">Go</button>
+                    <form id="search_form" action="#">
+                        <input id="search_txt" name="search_txt" type="text" placeholder="Search Our Site..." />
+                        <button id="submit" name="submit" class="icon_magnifying_glass"><i class="fa fa-search fa-2x"></i><span class="accessible_text"> Go</span></button>
+                    </form>
                 </div>
                 <div class="footer_bottom">
                     <p>&copy; The Trustees of the University of Pennsylvania | Site best viewed in a <a href="#">supported browser</a>. | <a href="#">Report Accessibility Issues and Get Help</a> | <a href="#">Privacy Policy</a> | Site Design: <a href="#">PMACS Web Team.</a></p>
