@@ -387,7 +387,8 @@ main figure.pull_right {
   position: absolute;
   top: 20px;
   right: 20px;
-  background: rgba(255, 255, 255, 0.6);
+  background-color: white;
+  background-color: rgba(255, 255, 255, 0.6);
   border: none;
   border-radius: 4px;
   width: 40px;
@@ -398,9 +399,10 @@ main figure.pull_right {
   cursor: pointer;
   font-size: 24px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3333333333);
+  transition: .25s background-color;
 }
 .carousel .carousel_play_btn:hover {
-  background: #ffffff;
+  background-color: white;
 }
 .carousel .carousel_play_btn.playing .pause {
   display: block;
@@ -419,7 +421,8 @@ main figure.pull_right {
   position: absolute;
   z-index: 2;
   top: calc(50% - 50px);
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: white;
+  background-color: rgba(255, 255, 255, 0.6);
   border: none;
   border-radius: 50%;
   width: 32px;
@@ -431,6 +434,7 @@ main figure.pull_right {
   font-size: 16px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3333333333);
   transform: translateY(-50%);
+  transition: 0.25s background-color;
 }
 .carousel .carousel_next_btn:hover,
 .carousel .carousel_prev_btn:hover {
