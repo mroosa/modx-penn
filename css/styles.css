@@ -414,5 +414,33 @@ main figure.pull_right {
 .carousel .carousel_play_btn.paused .play {
   display: block;
 }
+.carousel .carousel_next_btn,
+.carousel .carousel_prev_btn {
+  position: absolute;
+  z-index: 2;
+  top: calc(50% - 50px);
+  background-color: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3333333333);
+  transform: translateY(-50%);
+}
+.carousel .carousel_next_btn:hover,
+.carousel .carousel_prev_btn:hover {
+  background-color: white;
+}
+.carousel .carousel_next_btn {
+  right: 20px;
+}
+.carousel .carousel_prev_btn {
+  left: 20px;
+}
 
 /*# sourceMappingURL=styles.css.map */

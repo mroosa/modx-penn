@@ -54,6 +54,7 @@
                 <script>
                     let currentIndex = 0;
                     const carousel = document.querySelector('.carousel');
+                    const carouselWrap = document.querySelector('.carousel_wrap');
                     const slides = document.querySelectorAll('.carousel_slide');
                     const totalSlides = slides.length;
 
@@ -64,15 +65,9 @@
                         const carouselDot = document.createElement('li');
                         const carouselDotLink = document.createElement('a');
                         carouselDotLink.setAttribute('href', '#');
-                        if (i === 0) {
-                            carouselDotLink.classList.add('active');
-                        }
                         carouselDotLink.addEventListener('click', (e) => {
                             e.preventDefault();
-                            document.querySelector('.carousel_nav .active').classList.remove('active');
-                            carouselDotLink.classList.add('active');
-                            currentIndex = i;
-                            showSlide(currentIndex);
+                            showSlide(i);
                         });
                         carouselDot.appendChild(carouselDotLink);
                         carouselNav.appendChild(carouselDot);
@@ -81,7 +76,15 @@
 
                     // TODO: Use before/after positioning for seemless transitions in either direction.
                     const showSlide = (index) => {
-                        document.querySelector('.carousel_wrap').style.transform = `translateX(-${index * 100}%)`;
+                        carouselWrap.style.transform = `translateX(-${index * 100}%)`;
+                        document.querySelectorAll('.carousel_nav a').forEach((dot, d) => {
+                            if (d === index) {
+                                dot.classList.add('active');
+                            } else {
+                                dot.classList.remove('active');
+                                currentIndex = index;
+                            }
+                        });
                     }
 
                     // Initial display
@@ -109,6 +112,30 @@
                             playBtn.classList.add('playing');
                         }
                     });
+
+                    // Next/Prev Navigation
+                    const nextBtn = document.createElement('button');
+                    const prevBtn = document.createElement('button');
+                    nextBtn.classList.add('carousel_next_btn');
+                    nextBtn.setAttribute('aria-label', 'Next Slide');
+                    nextBtn.innerHTML = '<i class="fa fa-chevron-right fa-lg" aria-hidden="true"></i><span class="accessible_text"> Next Slide</span>';
+                    prevBtn.classList.add('carousel_prev_btn');
+                    prevBtn.setAttribute('aria-label', 'Previous Slide');
+                    prevBtn.innerHTML = '<i class="fa fa-chevron-left fa-lg" aria-hidden="true"></i><span class="accessible_text"> Previous Slide</span>';
+                    nextBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const nextSlide = (currentIndex +1) % totalSlides;
+                        showSlide(nextSlide);
+                    });
+                    prevBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const prevSlide = (currentIndex > 0) ? currentIndex - 1 : totalSlides - 1;
+                        showSlide(prevSlide);
+                    });
+                    // TODO: Check for playing state and pause (or hide next/prev when playing)
+                    carousel.appendChild(nextBtn);
+                    carousel.appendChild(prevBtn);
+
                 </script>
             </section>
             <section class="content" x-ref="content">
